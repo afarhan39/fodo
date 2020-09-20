@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Welcome to Flutter',
+        title: 'FoDo',
         theme: ThemeData(
           primaryColor: Colors.white,
         ),
@@ -29,12 +29,13 @@ class _RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold (
       appBar: AppBar(
-        title: Text('Startup Name Generator'),
+        title: Text('FoDo'),
         actions: [
           IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
         ],
       ),
       body: _buildSuggestions(),
+      floatingActionButton: MyFAB(),
     );
   }
 
@@ -80,6 +81,10 @@ class _RandomWordsState extends State<RandomWords> {
         pair.asPascalCase,
         style: _textStyle,
       ),
+      subtitle: Text(
+        pair.asCamelCase,
+        style: _textStyle,
+      ),
       trailing: Icon(
         isSaved ? Icons.favorite : Icons.favorite_border,
         color: isSaved ? Colors.red : null,
@@ -120,7 +125,7 @@ class _RandomWordsState extends State<RandomWords> {
             appBar: AppBar(
               title: Text('Saved Suggestions'),
             ),
-            body: ListView(children: divided),
+            body: ListView(children: divided)
           );
         }, // ...to here.
       ),
@@ -128,3 +133,27 @@ class _RandomWordsState extends State<RandomWords> {
   }
 }
 
+class MyFAB extends StatelessWidget
+{
+  Widget build(BuildContext context)
+  {
+    return FloatingActionButton(
+        onPressed:(){
+          showSnackBarHandler(context);
+        },
+        child:Icon(Icons.add),
+        tooltip:"Press to Add More"
+    );
+  }
+}
+
+void showSnackBarHandler(BuildContext context){
+
+  var snackBar = SnackBar(
+      content:Text("More list"),
+    duration: Duration(milliseconds: 500),
+  );
+
+  Scaffold.of(context).showSnackBar(snackBar);
+
+}
